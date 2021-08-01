@@ -1,11 +1,18 @@
 {
   "name": "api-rider",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "ts-node-dev --ignore-watch node_modules ./src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
+  },
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^3.1.1",
+    "bcryptjs": "^2.4.3",
+    "class-validator": "^0.13.1",
     "graphql": "^15.5.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
@@ -13,6 +20,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.4",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "eslint": "^7.31.0",

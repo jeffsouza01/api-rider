@@ -2,16 +2,19 @@ import "reflect-metadata";
 
 import { ApolloServer } from "apollo-server";
 
-import newSchema from "./schemas";
+import "./database";
+import schema from "./schemas";
 
-const app = async () => {
-  const schema = await newSchema();
+const server = new ApolloServer({
+  schema,
+  context: ({ req }) => {
+    const context = {
+      req,
+      token: req?.headers?.authorization,
+    };
 
-  const server = new ApolloServer({});
+    return context;
+  },
+});
 
-  server.listen({ port: process.env.APP_PORT }, () =>
-    console.log("Server is Running!")
-  );
-};
-
-app();
+server.listen({ port: 3000 }, () => console.log("Server is Running!"));
