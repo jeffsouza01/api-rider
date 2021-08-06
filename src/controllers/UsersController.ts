@@ -1,11 +1,21 @@
 import { hash } from "bcryptjs";
-import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Authorized,
+  Ctx,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from "type-graphql";
 import { getRepository, Repository } from "typeorm";
 
 import { User } from "../database/entities/User";
+import ensureAuthenticated from "../middleware/ensureAuthenticated";
+import { IContext } from "../types/IContext";
 import { CreateUserInput } from "./inputs/CreateUserInput";
 
-@Resolver(User)
+@Resolver()
 class UsersController {
   private usersRepository: Repository<User>;
 
@@ -13,15 +23,15 @@ class UsersController {
     this.usersRepository = getRepository(User);
   }
 
-  @Query((returns) => [User], { name: "users" })
+  @Query(() => [User], { name: "users" })
   @Authorized()
-  async show(): Promise<User[]> {
+  async show(@Ctx() ctx: IContext): Promise<User[]> {
     const users = await this.usersRepository.find();
 
     return users;
   }
 
-  @Mutation((returns) => User, { name: "createUser" })
+  @Mutation(() => User, { name: "createUser" })
   async createUser(@Arg("newUser") newUser: CreateUserInput): Promise<User> {
     const hashedPassword = await hash(newUser.password, 8);
 
@@ -30,6 +40,10 @@ class UsersController {
       email: newUser.email,
       password: hashedPassword,
     });
+
+    // const token = ctx.req.headers.authorization;
+
+    // console.log(token);
 
     await this.usersRepository.save(user);
 
