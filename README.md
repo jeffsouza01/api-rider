@@ -43,4 +43,4 @@ Realizar cópia do projeto local `git clone`
 
 ## Author
 
-_Jefferson da Silva Souza_ [:earth_americas:](https://www.github.com/octokatherine)
+_Jefferson da Silva Souza_ [:earth_americas:](https://www.linkedin.com/in/jeffsouza01)
