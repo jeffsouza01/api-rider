@@ -2,10 +2,7 @@ import { verify } from "jsonwebtoken";
 import { AuthChecker } from "type-graphql";
 
 import AuthConfig from "../config/AuthConfig";
-
-interface IContext {
-  token?: string;
-}
+import { IContext } from "../types/IContext";
 
 const ensureAuthenticated: AuthChecker<IContext> = ({ context }): boolean => {
   const authHeader = context.token;
@@ -15,10 +12,10 @@ const ensureAuthenticated: AuthChecker<IContext> = ({ context }): boolean => {
   }
 
   const [, token] = authHeader.split(" ");
+  const { sub: user_id } = verify(token, AuthConfig.jwt.secret);
 
   try {
-    const decoded = verify(token, AuthConfig.jwt.secret);
-    return !!decoded;
+    return !!user_id;
   } catch {
     return false;
   }
