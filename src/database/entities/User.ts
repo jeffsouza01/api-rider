@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 @ObjectType()
 @Entity("users")
 class User {
-  @Field((type) => ID, { nullable: true })
+  @Field((type) => ID)
   @PrimaryColumn()
   id: string;
 
