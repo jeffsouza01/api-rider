@@ -12,7 +12,7 @@ class Auth implements IAuth {
   @Field({ nullable: false })
   token: string;
 
-  @Field((type) => User, { nullable: false })
+  @Field(() => User, { nullable: false })
   user: User;
 }
 

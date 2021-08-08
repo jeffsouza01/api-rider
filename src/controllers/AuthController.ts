@@ -1,12 +1,11 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { getRepository, Repository } from "typeorm";
 
 import AuthConfig from "../config/AuthConfig";
 import { Auth } from "../database/entities/Auth";
 import { User } from "../database/entities/User";
-import { IContext } from "../types/IContext";
 import { AuthInput } from "./inputs/AuthInput";
 
 @Resolver(Auth)
@@ -18,10 +17,7 @@ class AuthController {
   }
 
   @Mutation(() => Auth)
-  async login(
-    @Arg("data") authInput: AuthInput,
-    @Ctx() ctx: IContext
-  ): Promise<Auth> {
+  async login(@Arg("data") authInput: AuthInput): Promise<Auth> {
     const { email, password } = authInput;
 
     const user = await this.userRepository.findOne({

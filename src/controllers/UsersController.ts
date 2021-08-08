@@ -1,9 +1,8 @@
 import { hash } from "bcryptjs";
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { getRepository, Repository } from "typeorm";
 
 import { User } from "../database/entities/User";
-import { IContext } from "../types/IContext";
 import { CreateUserInput } from "./inputs/CreateUserInput";
 
 @Resolver()
@@ -16,7 +15,7 @@ class UsersController {
 
   @Query(() => [User], { name: "users" })
   @Authorized()
-  async show(@Ctx() ctx: IContext): Promise<User[]> {
+  async show(): Promise<User[]> {
     const users = await this.usersRepository.find();
 
     return users;
