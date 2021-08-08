@@ -26,11 +26,7 @@ const main = async () => {
     },
   });
 
-  app.use(
-    cors({
-      credentials: true,
-    })
-  );
+  app.use(cors());
 
   app.use(
     jwt({
@@ -42,7 +38,7 @@ const main = async () => {
 
   await server.start();
 
-  server.applyMiddleware({ app, cors: false });
+  server.applyMiddleware({ app });
 
   app.listen(3000, () =>
     console.log(`Server is Running on http://localhost:3000/graphql`)

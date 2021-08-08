@@ -3,7 +3,7 @@ import { Request } from "express";
 interface IContext {
   req: Request;
   token?: string;
-  user?: {
+  userToken?: {
     iat: number;
     exp: number;
     sub: string;

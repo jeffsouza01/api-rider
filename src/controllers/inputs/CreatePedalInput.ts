@@ -1,4 +1,4 @@
-import { Authorized, Field, InputType } from "type-graphql";
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 class CreatePedalInput {
@@ -22,6 +22,9 @@ class CreatePedalInput {
 
   @Field()
   participants_limit: number;
+
+  @Field({ nullable: true })
+  user_id?: string;
 }
 
 export { CreatePedalInput };

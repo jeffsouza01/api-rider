@@ -1,17 +1,8 @@
 import { hash } from "bcryptjs";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  Mutation,
-  Query,
-  Resolver,
-  UseMiddleware,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { getRepository, Repository } from "typeorm";
 
 import { User } from "../database/entities/User";
-import ensureAuthenticated from "../middleware/ensureAuthenticated";
 import { IContext } from "../types/IContext";
 import { CreateUserInput } from "./inputs/CreateUserInput";
 
@@ -40,10 +31,6 @@ class UsersController {
       email: newUser.email,
       password: hashedPassword,
     });
-
-    // const token = ctx.req.headers.authorization;
-
-    // console.log(token);
 
     await this.usersRepository.save(user);
 

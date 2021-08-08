@@ -1,11 +1,13 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
+
+import { User } from "./User";
 
 @ObjectType()
 @Entity("pedals")
 class Pedal {
-  @Field((type) => ID)
+  @Field(() => ID)
   @PrimaryColumn()
   id: string;
 
@@ -36,6 +38,15 @@ class Pedal {
   @Field()
   @Column()
   participants_limit: number;
+
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: "user_id" })
+  user: User;
+
+  @Field(() => String)
+  @Column()
+  user_id: string;
 
   constructor() {
     if (!this.id) {

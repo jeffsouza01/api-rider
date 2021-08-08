@@ -1,17 +1,23 @@
+import { IsEmail } from "class-validator";
 import { Field, ID, ObjectType } from "type-graphql";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
+import { IsEmailAlreadyExists } from "../../controllers/validator/isEmailAlreadyexists";
+import { Pedal } from "./Pedal";
+
 @ObjectType()
 @Entity("users")
 class User {
-  @Field((type) => ID)
+  @Field(() => ID)
   @PrimaryColumn()
   id: string;
 
@@ -20,11 +26,13 @@ class User {
   name: string;
 
   @Column()
-  @Field((type) => String, { nullable: false })
+  @IsEmail()
+  @IsEmailAlreadyExists()
+  @Field(() => String, { nullable: false })
   email: string;
 
   @Column()
-  @Field((type) => String, { nullable: false })
+  @Field(() => String, { nullable: false })
   password: string;
 
   @CreateDateColumn()
@@ -34,6 +42,11 @@ class User {
   @UpdateDateColumn()
   @Field()
   updated_at: Date;
+
+  @Field(() => [Pedal], { nullable: true })
+  @JoinColumn()
+  @OneToMany(() => Pedal, (pedal) => pedal.id)
+  pedals?: Pedal;
 
   constructor() {
     if (!this.id) {
