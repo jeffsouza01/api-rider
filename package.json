@@ -4,7 +4,8 @@
   "main": "server.ts",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules ./src/server.ts",
-    "start": "ts-node-dev --ignore-watch node_modules ./src/server.ts",
+    "start": "node dist/index.js",
+    "postinstall": "tsc",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
   },
   "license": "MIT",
