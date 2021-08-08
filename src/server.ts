@@ -40,9 +40,11 @@ const main = async () => {
 
   server.applyMiddleware({ app });
 
-  app.listen(3000, () =>
-    console.log(`Server is Running on http://localhost:3000/graphql`)
-  );
+  const port = process.env.PORT || 3000;
+
+  app.listen(port, () => {
+    console.log(`Server is Running on http://localhost:3000/graphql`);
+  });
 };
 
 main();
