@@ -27,7 +27,7 @@ class Pedal {
   @Column()
   end_date_registration: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @Column()
   additional_information: string;
 
@@ -35,7 +35,7 @@ class Pedal {
   @Column()
   start_place: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column()
   participants_limit: number;
 
