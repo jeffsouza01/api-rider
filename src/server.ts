@@ -1,13 +1,12 @@
 import "reflect-metadata";
+import "./database";
+import "dotenv/config";
 
 import { ApolloServer } from "apollo-server-express";
 import cors from "cors";
 import Express from "express";
 import jwt from "express-jwt";
 
-import "./database";
-
-import AuthConfig from "./config/AuthConfig";
 import schema from "./schemas";
 
 const app = Express();
@@ -30,7 +29,7 @@ const main = async () => {
 
   app.use(
     jwt({
-      secret: AuthConfig.jwt.secret,
+      secret: process.env.JWT_SECRET as string,
       algorithms: ["HS256"],
       credentialsRequired: false,
     })
@@ -43,7 +42,7 @@ const main = async () => {
   const port = process.env.PORT || 3000;
 
   app.listen(port, () => {
-    console.log(`Server is Running on http://localhost:3000/graphql`);
+    console.log(`Server is Running on port: ${port}!!`);
   });
 };
 
