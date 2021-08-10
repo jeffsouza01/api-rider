@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import "./database";
 import "dotenv/config";
 
 import { ApolloServer } from "apollo-server-express";
@@ -7,8 +6,10 @@ import cors from "cors";
 import Express from "express";
 import jwt from "express-jwt";
 
+import createConnection from "./database";
 import schema from "./schemas";
 
+createConnection();
 const app = Express();
 
 const main = async () => {

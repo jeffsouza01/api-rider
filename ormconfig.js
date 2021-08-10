@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 module.exports = {
   "name": "default",
   "type": process.env.DB_TYPE,
